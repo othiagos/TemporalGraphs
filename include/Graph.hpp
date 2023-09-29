@@ -35,5 +35,5 @@ public:
     void add_connection(uint32_t first_index_village, uint32_t second_index_village,
                         uint32_t age_conn, uint32_t crossing_time, uint32_t construction_cost);
 
-    void find_min_distance(uint32_t index_start_village);
+    void find_min_crossing_time(uint32_t index_start_village);
 };

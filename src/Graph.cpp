@@ -58,7 +58,7 @@ void Graph::add_connection(uint32_t first_index_village, uint32_t second_index_v
     this->m_m++;
 }
 
-void Graph::find_min_distance(uint32_t index_start_village) {
+void Graph::find_min_crossing_time(uint32_t index_start_village) {
     std::shared_ptr<Village> start_village = m_villages.at(index_start_village);
     start_village->set_crossing_time(ZERO_TIME);
 
@@ -76,9 +76,9 @@ void Graph::find_min_distance(uint32_t index_start_village) {
             uint32_t index_neighbor = conn->get_neighbors(current_village->get_index_village());
             std::shared_ptr<Village> next_village = m_villages.at(index_neighbor);
 
-            uint32_t new_distance = current_village->get_crossing_time() + conn->get_crossing_time();
-            if (next_village->get_crossing_time() > new_distance) {
-                next_village->set_crossing_time(new_distance);
+            uint32_t new_time = current_village->get_crossing_time() + conn->get_crossing_time();
+            if (next_village->get_crossing_time() > new_time) {
+                next_village->set_crossing_time(new_time);
                 queue.push(next_village);
             }
         }
