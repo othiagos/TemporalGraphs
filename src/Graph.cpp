@@ -32,7 +32,8 @@ uint32_t Graph::get_m() const {
 void Graph::add_n_village(uint32_t n_villages) {
     this->m_n += n_villages;
 
-    for (uint32_t i = 0; i < n_villages; i++) add_village();
+    for (uint32_t i = 0; i < n_villages; i++)
+        add_village();
 }
 
 const std::vector<std::shared_ptr<Village>> &Graph::get_villages() const {
@@ -55,4 +56,32 @@ void Graph::add_connection(uint32_t first_index_village, uint32_t second_index_v
     this->m_villages.at(second_index_village)->add_connection_village(conn);
 
     this->m_m++;
+}
+
+void Graph::find_min_distance(uint32_t index_start_village) {
+    std::shared_ptr<Village> start_village = m_villages.at(index_start_village);
+    start_village->set_crossing_time(ZERO_TIME);
+
+    std::priority_queue<std::shared_ptr<Village>> queue;
+    queue.push(start_village);
+
+    while (!queue.empty()) {
+        std::shared_ptr<Village> current_village = queue.top();
+        queue.pop();
+
+        if (current_village->has_visited())
+            continue;
+
+        for (auto conn : current_village->get_connected_villages()) {
+            uint32_t index_neighbor = conn->get_neighbors(current_village->get_index_village());
+            std::shared_ptr<Village> next_village = m_villages.at(index_neighbor);
+
+            uint32_t new_distance = current_village->get_crossing_time() + conn->get_crossing_time();
+            if (next_village->get_crossing_time() > new_distance) {
+                next_village->set_crossing_time(new_distance);
+                queue.push(next_village);
+            }
+        }
+        current_village->set_visited(true);
+    }
 }

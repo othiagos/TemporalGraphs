@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <stdexcept>
 
 class Connection {
 private:
@@ -27,6 +28,8 @@ public:
     uint32_t get_crossing_time() const;
 
     uint32_t get_construction_cost() const;
+
+    uint32_t get_neighbors(uint32_t my_index_village) const;
 
     void set_first_index_village(uint32_t index_village);
 

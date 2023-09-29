@@ -50,3 +50,6 @@ clean:
 	rm -f $(BUILD_DIR)/*
 	rm -f $(EXE)
 	rm -f $(EXE_TEST)
+
+file:
+	cpp-merge -i $(INC_DIR) -s $(SRC_DIR) $(SRC_DIR)/$(NAME).cpp -o tp.cpp

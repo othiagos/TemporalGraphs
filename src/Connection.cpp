@@ -47,6 +47,18 @@ uint32_t Connection::get_construction_cost() const {
     return this->m_crossing_time;
 }
 
+uint32_t Connection::get_neighbors(uint32_t my_index_village) const {
+    if (this->m_first_index_village != my_index_village)
+        return m_first_index_village;
+
+    if (this->m_second_index_village != my_index_village)
+        return m_second_index_village;
+
+    throw std::invalid_argument(
+        "index of the village not belonging to the connection: provided index " +
+        std::to_string(my_index_village));
+}
+
 void Connection::set_first_index_village(uint32_t index_village) {
     this->m_first_index_village = index_village;
 }
