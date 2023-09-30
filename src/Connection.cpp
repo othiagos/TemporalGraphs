@@ -47,7 +47,7 @@ uint32_t Connection::get_construction_cost() const {
     return this->m_crossing_time;
 }
 
-uint32_t Connection::get_neighbors(uint32_t my_index_village) const {
+uint32_t Connection::get_neighbor(uint32_t my_index_village) const {
     if (this->m_first_index_village != my_index_village)
         return m_first_index_village;
 

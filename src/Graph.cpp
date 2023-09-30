@@ -62,7 +62,11 @@ void Graph::find_min_crossing_time(uint32_t index_start_village) {
     std::shared_ptr<Village> start_village = m_villages.at(index_start_village);
     start_village->set_crossing_time(ZERO_TIME);
 
-    std::priority_queue<std::shared_ptr<Village>> queue;
+    // define a min priority queue
+    std::priority_queue<std::shared_ptr<Village>,
+                        std::vector<std::shared_ptr<Village>>,
+                        std::greater<std::shared_ptr<Village>>>
+        queue;
     queue.push(start_village);
 
     while (!queue.empty()) {
@@ -73,7 +77,7 @@ void Graph::find_min_crossing_time(uint32_t index_start_village) {
             continue;
 
         for (auto conn : current_village->get_connected_villages()) {
-            uint32_t index_neighbor = conn->get_neighbors(current_village->get_index_village());
+            uint32_t index_neighbor = conn->get_neighbor(current_village->get_index_village());
             std::shared_ptr<Village> next_village = m_villages.at(index_neighbor);
 
             uint32_t new_time = current_village->get_crossing_time() + conn->get_crossing_time();
