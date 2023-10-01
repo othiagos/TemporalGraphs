@@ -8,11 +8,15 @@ Village::Village(uint32_t index_village) {
 
 Village::Village(const Village &v) {
     this->m_index_village = v.get_index_village();
+    this->m_crossing_time = v.get_crossing_time();
+    this->m_visited = v.has_visited();
     this->m_connected_villages = std::vector(v.get_connected_villages());
 }
 
 Village &Village::operator=(const Village &v) {
     this->m_index_village = v.get_index_village();
+    this->m_crossing_time = v.get_crossing_time();
+    this->m_visited = v.has_visited();
     this->m_connected_villages = std::vector(v.get_connected_villages());
 
     return *this;
