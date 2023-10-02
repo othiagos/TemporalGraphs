@@ -16,11 +16,18 @@ int main(int argc, char const *argv[]) {
         g.add_connection(u - 1, v - 1, a, l, c);
     }
 
-    g.find_min_crossing_time(0);
+    uint32_t small_year = g.find_smallest_achievable_year();
 
     for (auto v : g.get_villages()) {
         std::cout << v->get_crossing_time() << std::endl;
     }
+    std::cout << small_year << std::endl;
+
+    uint32_t first_year = g.find_first_attainable_year();
+    std::cout << first_year << std::endl;
+
+    uint32_t lowest_cost = g.find_lowest_possible_cost();
+    std::cout << lowest_cost << std::endl;
 
     return 0;
 }
