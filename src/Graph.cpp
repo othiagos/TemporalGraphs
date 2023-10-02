@@ -3,6 +3,7 @@
 Graph::Graph(uint32_t n) {
     this->m_n = 0;
     this->m_m = 0;
+    this->m_villages.reserve(n);
 
     add_n_village(n);
 }
@@ -42,8 +43,7 @@ const std::vector<std::shared_ptr<Village>> &Graph::get_villages() const {
 
 void Graph::add_village() {
     uint32_t index = get_villages().size();
-    auto village = std::make_shared<Village>(index);
-    this->m_villages.push_back(village);
+    this->m_villages.emplace_back(new Village(index));
 }
 
 void Graph::add_connection(uint32_t first_index_village, uint32_t second_index_village,

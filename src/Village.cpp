@@ -50,6 +50,6 @@ const std::vector<std::shared_ptr<Connection>> &Village::get_connected_villages(
     return this->m_connected_villages;
 }
 
-void Village::add_connection_village(std::shared_ptr<Connection> conn) {
+void Village::add_connection_village(const std::shared_ptr<Connection> &conn) {
     this->m_connected_villages.push_back(conn);
 }

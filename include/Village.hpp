@@ -34,5 +34,5 @@ public:
 
     void set_visited(bool visit);
 
-    void add_connection_village(std::shared_ptr<Connection> conn);
+    void add_connection_village(const std::shared_ptr<Connection> &conn);
 };
