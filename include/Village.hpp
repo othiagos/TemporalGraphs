@@ -52,4 +52,16 @@ public:
     void set_parent_village(uint32_t index_parent_village);
 
     void add_connection_village(const std::shared_ptr<Connection> &conn);
+
+    struct CompareAgeConn {
+        bool operator()(const std::shared_ptr<Village> &o1, const std::shared_ptr<Village> &o2);
+    };
+
+    struct CompareCrossingTime {
+        bool operator()(const std::shared_ptr<Village> &o1, const std::shared_ptr<Village> &o2);
+    };
+
+    struct CompareConstructionCost {
+        bool operator()(const std::shared_ptr<Village> &o1, const std::shared_ptr<Village> &o2);
+    };
 };

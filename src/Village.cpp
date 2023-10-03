@@ -86,3 +86,15 @@ const std::vector<std::shared_ptr<Connection>> &Village::get_connected_villages(
 void Village::add_connection_village(const std::shared_ptr<Connection> &conn) {
     this->m_connected_villages.push_back(conn);
 }
+
+bool Village::CompareAgeConn::operator()(const std::shared_ptr<Village> &o1, const std::shared_ptr<Village> &o2) {
+    return o1->get_age_conn() > o2->get_age_conn();
+}
+
+bool Village::CompareCrossingTime::operator()(const std::shared_ptr<Village> &o1, const std::shared_ptr<Village> &o2) {
+    return o1->get_crossing_time() > o2->get_crossing_time();
+}
+
+bool Village::CompareConstructionCost::operator()(const std::shared_ptr<Village> &o1, const std::shared_ptr<Village> &o2) {
+    return o1->get_construction_cost() > o2->get_construction_cost();
+}

@@ -71,7 +71,7 @@ void Graph::find_min_age_conn(uint32_t index_start_village) {
     // define a min priority queue
     std::priority_queue<std::shared_ptr<Village>,
                         std::vector<std::shared_ptr<Village>>,
-                        std::greater<std::shared_ptr<Village>>>
+                        Village::CompareAgeConn>
         queue;
     queue.push(start_village);
 
@@ -110,7 +110,7 @@ void Graph::find_min_crossing_time(uint32_t index_start_village) {
     // define a min priority queue
     std::priority_queue<std::shared_ptr<Village>,
                         std::vector<std::shared_ptr<Village>>,
-                        std::greater<std::shared_ptr<Village>>>
+                        Village::CompareCrossingTime>
         queue;
     queue.push(start_village);
 
@@ -149,7 +149,7 @@ void Graph::find_min_construction_cost(uint32_t index_start_village) {
     // define a min priority queue
     std::priority_queue<std::shared_ptr<Village>,
                         std::vector<std::shared_ptr<Village>>,
-                        std::greater<std::shared_ptr<Village>>>
+                        Village::CompareConstructionCost>
         queue;
     queue.push(start_village);
 
