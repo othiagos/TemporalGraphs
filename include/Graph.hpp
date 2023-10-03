@@ -50,6 +50,4 @@ public:
     uint32_t find_first_attainable_year();
 
     uint32_t find_lowest_possible_cost();
-
-    
 };

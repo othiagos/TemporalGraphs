@@ -1,8 +1,8 @@
 #pragma once
 
 #include <cstdint>
-#include <memory>
 #include <list>
+#include <memory>
 
 #include "Connection.hpp"
 
