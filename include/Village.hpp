@@ -2,7 +2,7 @@
 
 #include <cstdint>
 #include <memory>
-#include <vector>
+#include <list>
 
 #include "Connection.hpp"
 
@@ -16,7 +16,7 @@ private:
     uint32_t m_construction_cost;
     bool m_visited;
     int32_t m_parent_village;
-    std::vector<std::shared_ptr<Connection>> m_connected_villages;
+    std::list<std::shared_ptr<Connection>> m_connected_villages;
 
 public:
     Village(uint32_t index_village);
@@ -37,7 +37,7 @@ public:
 
     uint32_t get_parent_village() const;
 
-    const std::vector<std::shared_ptr<Connection>> &get_connected_villages() const;
+    const std::list<std::shared_ptr<Connection>> &get_connected_villages() const;
 
     void set_index_village(uint32_t index_village);
 

@@ -8,7 +8,7 @@ int main(int argc, char const *argv[]) {
     uint32_t n, m;
 
     std::cin >> n >> m;
-    Graph g(n);
+    Graph g(n, m);
 
     uint32_t u, v, a, l, c;
     for (uint32_t i = 0; i < m; i++) {
