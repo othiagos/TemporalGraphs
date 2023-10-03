@@ -10,6 +10,7 @@
 #define ZERO_AGE 0
 #define ZERO_TIME 0
 #define ZERO_COST 0
+#define START_VILLAGE 0
 
 class Graph {
 private:

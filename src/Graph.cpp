@@ -86,9 +86,9 @@ void Graph::find_min_age_conn(uint32_t index_start_village) {
             uint32_t index_neighbor = conn->get_neighbor(current_village->get_index_village());
             std::shared_ptr<Village> next_village = m_villages.at(index_neighbor);
 
-            uint32_t new_time = current_village->get_age_conn() + conn->get_age_conn();
-            if (next_village->get_age_conn() > new_time) {
-                next_village->set_age_conn(new_time);
+            uint32_t new_age = current_village->get_age_conn() + conn->get_age_conn();
+            if (next_village->get_age_conn() > new_age) {
+                next_village->set_age_conn(new_age);
                 next_village->set_parent_village(current_village->get_index_village());
                 queue.push(next_village);
             }
@@ -164,9 +164,9 @@ void Graph::find_min_construction_cost(uint32_t index_start_village) {
             uint32_t index_neighbor = conn->get_neighbor(current_village->get_index_village());
             std::shared_ptr<Village> next_village = m_villages.at(index_neighbor);
 
-            uint32_t new_time = current_village->get_construction_cost() + conn->get_construction_cost();
-            if (next_village->get_construction_cost() > new_time) {
-                next_village->set_construction_cost(new_time);
+            uint32_t new_cost = current_village->get_construction_cost() + conn->get_construction_cost();
+            if (next_village->get_construction_cost() > new_cost) {
+                next_village->set_construction_cost(new_cost);
                 next_village->set_parent_village(current_village->get_index_village());
                 queue.push(next_village);
             }
@@ -176,22 +176,22 @@ void Graph::find_min_construction_cost(uint32_t index_start_village) {
 }
 
 uint32_t Graph::find_smallest_achievable_year() {
-    find_min_crossing_time(0);
+    find_min_crossing_time(START_VILLAGE);
 
-    std::vector<std::shared_ptr<Connection>> bestConn;
+    std::vector<std::shared_ptr<Connection>> best_conn;
     for (const auto &conn : this->m_connections) {
         uint32_t fi = conn->get_first_index_village();
         uint32_t si = conn->get_second_index_village();
 
         if (m_villages.at(fi)->get_parent_village() == si) {
-            bestConn.push_back(conn);
+            best_conn.push_back(conn);
         } else if (m_villages.at(si)->get_parent_village() == fi) {
-            bestConn.push_back(conn);
+            best_conn.push_back(conn);
         }
     }
 
-    uint32_t max_age = bestConn.at(0)->get_age_conn();
-    for (const auto &v : bestConn) {
+    uint32_t max_age = best_conn.at(0)->get_age_conn();
+    for (const auto &v : best_conn) {
         uint32_t value = v->get_age_conn();
         if (value > max_age) {
             max_age = value;
@@ -201,22 +201,22 @@ uint32_t Graph::find_smallest_achievable_year() {
 }
 
 uint32_t Graph::find_first_attainable_year() {
-    find_min_age_conn(0);
+    find_min_age_conn(START_VILLAGE);
 
-    std::vector<std::shared_ptr<Connection>> bestConn;
+    std::vector<std::shared_ptr<Connection>> best_conn;
     for (const auto &conn : this->m_connections) {
         uint32_t fi = conn->get_first_index_village();
         uint32_t si = conn->get_second_index_village();
 
         if (m_villages.at(fi)->get_parent_village() == si) {
-            bestConn.push_back(conn);
+            best_conn.push_back(conn);
         } else if (m_villages.at(si)->get_parent_village() == fi) {
-            bestConn.push_back(conn);
+            best_conn.push_back(conn);
         }
     }
 
-    uint32_t max_age = bestConn.at(0)->get_age_conn();
-    for (const auto &v : bestConn) {
+    uint32_t max_age = best_conn.at(0)->get_age_conn();
+    for (const auto &v : best_conn) {
         uint32_t value = v->get_age_conn();
         if (value > max_age) {
             max_age = value;
@@ -226,22 +226,22 @@ uint32_t Graph::find_first_attainable_year() {
 }
 
 uint32_t Graph::find_lowest_possible_cost() {
-    find_min_construction_cost(0);
+    find_min_construction_cost(START_VILLAGE);
 
-    std::vector<std::shared_ptr<Connection>> bestConn;
+    std::vector<std::shared_ptr<Connection>> best_conn;
     for (const auto &conn : this->m_connections) {
         uint32_t fi = conn->get_first_index_village();
         uint32_t si = conn->get_second_index_village();
 
         if (m_villages.at(fi)->get_parent_village() == si) {
-            bestConn.push_back(conn);
+            best_conn.push_back(conn);
         } else if (m_villages.at(si)->get_parent_village() == fi) {
-            bestConn.push_back(conn);
+            best_conn.push_back(conn);
         }
     }
 
     uint32_t sum_cost = 0;
-    for (const auto &v : bestConn) {
+    for (const auto &v : best_conn) {
         sum_cost += v->get_construction_cost();
     }
     return sum_cost;
