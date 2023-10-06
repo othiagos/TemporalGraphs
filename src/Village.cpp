@@ -35,15 +35,15 @@ uint32_t Village::get_index_village() const {
     return this->m_index_village;
 }
 
-uint32_t Village::get_age_conn() const {
+uint64_t Village::get_age_conn() const {
     return this->m_age_conn;
 }
 
-uint32_t Village::get_crossing_time() const {
+uint64_t Village::get_crossing_time() const {
     return this->m_crossing_time;
 }
 
-uint32_t Village::get_construction_cost() const {
+uint64_t Village::get_construction_cost() const {
     return this->m_construction_cost;
 }
 
@@ -59,15 +59,15 @@ void Village::set_index_village(uint32_t index_village) {
     this->m_index_village = index_village;
 }
 
-void Village::set_age_conn(uint32_t age_conn) {
+void Village::set_age_conn(uint64_t age_conn) {
     this->m_age_conn = age_conn;
 }
 
-void Village::set_crossing_time(uint32_t crossing_time) {
+void Village::set_crossing_time(uint64_t crossing_time) {
     this->m_crossing_time = crossing_time;
 }
 
-void Village::set_construction_cost(uint32_t construction_cost) {
+void Village::set_construction_cost(uint64_t construction_cost) {
     this->m_construction_cost = construction_cost;
 }
 

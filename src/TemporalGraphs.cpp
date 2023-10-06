@@ -26,7 +26,7 @@ int main(int argc, char const *argv[]) {
     uint32_t first_year = g.find_first_attainable_year();
     std::cout << first_year << std::endl;
 
-    uint32_t lowest_cost = g.find_lowest_possible_cost();
+    uint64_t lowest_cost = g.find_lowest_possible_cost();
     std::cout << lowest_cost << std::endl;
 
     return 0;
