@@ -1,5 +1,5 @@
 NAME = TemporalGraphs
-TEST_NAME = TemporalGraphsTest
+TEST_NAME = $(NAME)Test
 CC = g++
 SRC_DIR = ./src
 INC_DIR = ./include
@@ -7,7 +7,7 @@ LIB_DIR = ./lib
 BIN_DIR = ./bin
 BUILD_DIR = ./build
 TEST_DIR = ./test
-CFLAGS = --std=c++20 -Wall -O0 -g 
+CFLAGS = --std=c++20 -Wall -O0 -g
 EXE = $(BIN_DIR)/$(NAME)
 EXE_TEST = $(BIN_DIR)/$(TEST_NAME)
 

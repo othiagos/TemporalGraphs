@@ -16,7 +16,7 @@ private:
     uint64_t m_construction_cost;
     bool m_visited;
     int32_t m_parent_village;
-    std::list<std::shared_ptr<Connection>> m_connected_villages;
+    std::list<uint32_t> m_connected_villages;
 
 public:
     Village(uint32_t index_village);
@@ -37,7 +37,7 @@ public:
 
     uint32_t get_parent_village() const;
 
-    const std::list<std::shared_ptr<Connection>> &get_connected_villages() const;
+    const std::list<uint32_t> &get_connected_villages() const;
 
     void set_index_village(uint32_t index_village);
 
@@ -51,7 +51,7 @@ public:
 
     void set_parent_village(uint32_t index_parent_village);
 
-    void add_connection_village(const std::shared_ptr<Connection> &conn);
+    void add_connection_village(uint32_t conn);
 
     struct CompareAgeConn {
         bool operator()(const std::shared_ptr<Village> &o1, const std::shared_ptr<Village> &o2);

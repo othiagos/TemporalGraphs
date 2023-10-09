@@ -79,11 +79,11 @@ void Village::set_parent_village(uint32_t index_parent_village) {
     this->m_parent_village = index_parent_village;
 }
 
-const std::list<std::shared_ptr<Connection>> &Village::get_connected_villages() const {
+const std::list<uint32_t> &Village::get_connected_villages() const {
     return this->m_connected_villages;
 }
 
-void Village::add_connection_village(const std::shared_ptr<Connection> &conn) {
+void Village::add_connection_village(uint32_t conn) {
     this->m_connected_villages.push_back(conn);
 }
 
