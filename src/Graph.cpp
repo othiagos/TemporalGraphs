@@ -32,8 +32,6 @@ uint32_t Graph::get_m() const {
 }
 
 void Graph::add_n_village(uint32_t n_villages) {
-    this->m_n += n_villages;
-
     for (uint32_t i = 0; i < n_villages; i++)
         add_village();
 }
@@ -59,7 +57,6 @@ void Graph::add_connection(uint32_t first_index_village, uint32_t second_index_v
 void Graph::find_min_age_conn(uint32_t index_start_village) {
     for (const auto &v : this->m_villages) {
         v->set_visited(false);
-        v->set_age_conn(UINT32_MAX);
         v->set_parent_village(NULL_PARENT);
     }
 
@@ -96,11 +93,10 @@ void Graph::find_min_age_conn(uint32_t index_start_village) {
 }
 
 void Graph::find_min_crossing_time(uint32_t index_start_village) {
-    for (const auto &v : this->m_villages) {
-        v->set_visited(false);
-        v->set_crossing_time(UINT32_MAX);
-        v->set_parent_village(NULL_PARENT);
-    }
+    // for (const auto &v : this->m_villages) {
+    //     v->set_visited(false);
+    //     v->set_parent_village(NULL_PARENT);
+    // }
 
     std::shared_ptr<Village> start_village = m_villages.at(index_start_village);
     start_village->set_crossing_time(ZERO_TIME);
@@ -137,7 +133,6 @@ void Graph::find_min_crossing_time(uint32_t index_start_village) {
 void Graph::find_min_construction_cost(uint32_t index_start_village) {
     for (const auto &v : this->m_villages) {
         v->set_visited(false);
-        v->set_construction_cost(UINT32_MAX);
         v->set_parent_village(NULL_PARENT);
     }
 

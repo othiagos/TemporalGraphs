@@ -2,9 +2,9 @@
 
 Village::Village(uint32_t index_village) {
     this->m_index_village = index_village;
-    this->m_age_conn = UINT16_MAX;
-    this->m_crossing_time = UINT32_MAX;
-    this->m_construction_cost = UINT32_MAX;
+    this->m_age_conn = UINT64_MAX;
+    this->m_crossing_time = UINT64_MAX;
+    this->m_construction_cost = UINT64_MAX;
     this->m_visited = false;
     this->m_parent_village = NULL_PARENT;
 }
