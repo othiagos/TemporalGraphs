@@ -1,7 +1,6 @@
 #pragma once
 
 #include <cstdint>
-#include <memory>
 #include <queue>
 #include <vector>
 
@@ -16,8 +15,8 @@ class Graph {
 private:
     uint32_t m_n;
     uint32_t m_m;
-    std::vector<std::shared_ptr<Village>> m_villages;
-    std::vector<std::shared_ptr<Connection>> m_connections;
+    std::vector<Village*> m_villages;
+    std::vector<Connection*> m_connections;
 
     void add_n_village(uint32_t n_villages);
 
@@ -28,11 +27,13 @@ public:
 
     Graph &operator=(const Graph &g);
 
+    ~Graph();
+
     uint32_t get_n() const;
 
     uint32_t get_m() const;
 
-    const std::vector<std::shared_ptr<Village>> &get_villages() const;
+    const std::vector<Village*> &get_villages() const;
 
     void add_village();
 

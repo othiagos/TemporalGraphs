@@ -49,7 +49,7 @@ $(BUILD_DIR)/%.o: $(TEST_DIR)/%.cpp
 leak_check: all
 	valgrind --leak-check=full --show-leak-kinds=all $(EXE) < $(ARGS) > /dev/null 
 
-heap_profiler:
+heap_profiler: all
 	valgrind --tool=massif --massif-out-file=massif.txt $(EXE) < $(ARGS) > /dev/null
 	ms_print massif.txt > ms_out.txt
 

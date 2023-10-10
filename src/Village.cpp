@@ -16,7 +16,7 @@ Village::Village(const Village &v) {
     this->m_construction_cost = v.get_construction_cost();
     this->m_visited = v.has_visited();
     this->m_parent_village = v.get_parent_village();
-    this->m_connected_villages = std::list(v.get_connected_villages());
+    this->m_connected_villages = std::vector(v.get_connected_villages());
 }
 
 Village &Village::operator=(const Village &v) {
@@ -26,7 +26,7 @@ Village &Village::operator=(const Village &v) {
     this->m_construction_cost = v.get_construction_cost();
     this->m_visited = v.has_visited();
     this->m_parent_village = v.get_parent_village();
-    this->m_connected_villages = std::list(v.get_connected_villages());
+    this->m_connected_villages = std::vector(v.get_connected_villages());
 
     return *this;
 }
@@ -79,22 +79,22 @@ void Village::set_parent_village(uint32_t index_parent_village) {
     this->m_parent_village = index_parent_village;
 }
 
-const std::list<uint32_t> &Village::get_connected_villages() const {
+const std::vector<Connection*> &Village::get_connected_villages() const {
     return this->m_connected_villages;
 }
 
-void Village::add_connection_village(uint32_t conn) {
+void Village::add_connection_village(Connection* conn) {
     this->m_connected_villages.push_back(conn);
 }
 
-bool Village::CompareAgeConn::operator()(const std::shared_ptr<Village> &o1, const std::shared_ptr<Village> &o2) {
+bool Village::CompareAgeConn::operator()(Village* o1, Village* o2) {
     return o1->get_age_conn() > o2->get_age_conn();
 }
 
-bool Village::CompareCrossingTime::operator()(const std::shared_ptr<Village> &o1, const std::shared_ptr<Village> &o2) {
+bool Village::CompareCrossingTime::operator()(Village* o1, Village* o2) {
     return o1->get_crossing_time() > o2->get_crossing_time();
 }
 
-bool Village::CompareConstructionCost::operator()(const std::shared_ptr<Village> &o1, const std::shared_ptr<Village> &o2) {
+bool Village::CompareConstructionCost::operator()(Village* o1, Village* o2) {
     return o1->get_construction_cost() > o2->get_construction_cost();
 }
