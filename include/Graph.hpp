@@ -35,6 +35,8 @@ public:
 
     const std::vector<Village*> &get_villages() const;
 
+    const std::vector<Connection*> &get_connections() const;
+
     void add_village();
 
     void add_connection(uint32_t first_index_village, uint32_t second_index_village,

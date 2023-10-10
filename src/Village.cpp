@@ -16,7 +16,7 @@ Village::Village(const Village &v) {
     this->m_construction_cost = v.get_construction_cost();
     this->m_visited = v.has_visited();
     this->m_parent_village = v.get_parent_village();
-    this->m_connected_villages = std::vector(v.get_connected_villages());
+    this->m_connected_villages = std::vector<Connection*>(v.get_connected_villages());
 }
 
 Village &Village::operator=(const Village &v) {
@@ -26,7 +26,7 @@ Village &Village::operator=(const Village &v) {
     this->m_construction_cost = v.get_construction_cost();
     this->m_visited = v.has_visited();
     this->m_parent_village = v.get_parent_village();
-    this->m_connected_villages = std::vector(v.get_connected_villages());
+    this->m_connected_villages = std::vector<Connection*>(v.get_connected_villages());
 
     return *this;
 }

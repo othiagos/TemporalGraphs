@@ -12,13 +12,15 @@ Graph::Graph(uint32_t n, uint32_t m) {
 Graph::Graph(const Graph &g) {
     this->m_n = g.get_n();
     this->m_m = g.get_m();
-    this->m_villages = std::vector(g.get_villages());
+    this->m_villages = std::vector<Village*>(g.get_villages());
+    this->m_connections = std::vector<Connection*>(g.get_connections());
 }
 
 Graph &Graph::operator=(const Graph &g) {
     this->m_n = g.get_n();
     this->m_m = g.get_m();
-    this->m_villages = std::vector(g.get_villages());
+    this->m_villages = std::vector<Village*>(g.get_villages());
+    this->m_connections = std::vector<Connection*>(g.get_connections());
 
     return *this;
 }
@@ -46,6 +48,10 @@ void Graph::add_n_village(uint32_t n_villages) {
 
 const std::vector<Village*> &Graph::get_villages() const {
     return this->m_villages;
+}
+
+const std::vector<Connection*> &Graph::get_connections() const {
+    return this->m_connections;
 }
 
 void Graph::add_village() {
