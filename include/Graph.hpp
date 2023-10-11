@@ -6,9 +6,7 @@
 
 #include "Village.hpp"
 
-#define ZERO_AGE 0
 #define ZERO_TIME 0
-#define ZERO_COST 0
 #define START_VILLAGE 0
 
 class Graph {
@@ -42,11 +40,10 @@ public:
     void add_connection(uint32_t first_index_village, uint32_t second_index_village,
                         uint32_t age_conn, uint32_t crossing_time, uint32_t construction_cost);
 
-    void find_min_age_conn(uint32_t index_start_village);
-
     void find_min_crossing_time(uint32_t index_start_village);
 
-    void find_min_construction_cost(uint32_t index_start_village);
+    template <class Compare>
+    void mst_prim(uint32_t index_start_village, std::vector<Connection*> *min_tree, Compare);
 
     uint32_t find_smallest_achievable_year();
 

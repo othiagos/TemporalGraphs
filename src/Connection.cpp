@@ -78,3 +78,15 @@ void Connection::set_crossing_time(uint32_t new_crossing_time) {
 void Connection::set_construction_cost(uint32_t new_construction_cost) {
     this->m_construction_cost = new_construction_cost;
 }
+
+bool Connection::CompareAgeConn::operator()(const Connection* const o1, const Connection* const o2) {
+    return o1->get_age_conn() > o2->get_age_conn();
+}
+
+bool Connection::CompareCrossingTime::operator()(const Connection* const o1, const Connection* const o2) {
+    return o1->get_crossing_time() > o2->get_crossing_time();
+}
+
+bool Connection::CompareConstructionCost::operator()(const Connection* const o1, const Connection* const o2) {
+    return o1->get_construction_cost() > o2->get_construction_cost();
+}

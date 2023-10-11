@@ -40,4 +40,16 @@ public:
     void set_crossing_time(uint32_t new_crossing_time);
 
     void set_construction_cost(uint32_t new_construction_cost);
+
+    struct CompareAgeConn {
+        bool operator()(const Connection* const o1, const Connection* const o2);
+    };
+
+    struct CompareCrossingTime {
+        bool operator()(const Connection* const o1, const Connection* const o2);
+    };
+
+    struct CompareConstructionCost {
+        bool operator()(const Connection* const o1, const Connection* const o2);
+    };
 };
