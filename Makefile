@@ -6,17 +6,19 @@ INC_DIR = ./include
 LIB_DIR = ./lib
 BIN_DIR = ./bin
 BUILD_DIR = ./build
-TEST_DIR = ./test
-CFLAGS = --std=c++11 -Wall -O1 -g
+TEST_DIR = ./tests
+CFLAGS = --std=c++11 -Wall -g
+HFIlE = hpp
+CFILE = cpp
 EXE = $(BIN_DIR)/$(NAME)
 EXE_TEST = $(BIN_DIR)/$(TEST_NAME)
 
-OBJS = \
-	$(BUILD_DIR)/Connection.o \
-	$(BUILD_DIR)/Village.o \
-	$(BUILD_DIR)/Graph.o
+define GENERATE_OBJS
+$(shell for f in $$(ls -R $(1) | grep $(CFILE) | sed 's/$(CFILE)/o/;s/$(2).o//'); do echo $(BUILD_DIR)/$$f; done)
+endef
 
-TEST_OBJS = \
+OBJS = $(call GENERATE_OBJS,$(SRC_DIR),$(NAME))
+TEST_OBJS = $(call GENERATE_OBJS,$(TEST_DIR),$(TEST_NAME))
 
 all: $(EXE)
 
@@ -26,10 +28,10 @@ run: all
 $(EXE): $(BUILD_DIR)/$(NAME).o $(OBJS) 
 	$(CC) $(CFLAGS) $< $(OBJS) -o $@
 
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp $(INC_DIR)/%.hpp
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.$(CFILE) $(INC_DIR)/%.$(HFILE)
 	$(CC) -c $(CFLAGS) $< -I $(INC_DIR) -o $@
 
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.$(CFILE)
 	$(CC) -c $(CFLAGS) $< -I $(INC_DIR) -o $@ 
 
 test: $(EXE_TEST)
@@ -40,10 +42,10 @@ run_test: test
 $(EXE_TEST): $(BUILD_DIR)/$(TEST_NAME).o $(OBJS) $(TEST_OBJS)
 	$(CC) $(CFLAGS) $< $(OBJS) $(TEST_OBJS) -o $(EXE_TEST)
 
-$(BUILD_DIR)/%.o: $(TEST_DIR)/%.cpp
+$(BUILD_DIR)/%.o: $(TEST_DIR)/%.$(CFILE)
 	$(CC) -c $(CFLAGS) $< -I $(INC_DIR) -I $(LIB_DIR) -o $@
 
-$(BUILD_DIR)/%.o: $(TEST_DIR)/%.cpp
+$(BUILD_DIR)/%.o: $(TEST_DIR)/%.$(CFILE)
 	$(CC) -c $(CFLAGS) $< -I $(INC_DIR) -I $(LIB_DIR) -o $@
 
 leak_check: all
@@ -59,4 +61,4 @@ clean:
 	rm -f $(EXE_TEST)
 
 file:
-	cpp-merge -i $(INC_DIR) -s $(SRC_DIR) $(SRC_DIR)/$(NAME).cpp -o tp.cpp
+	$(CFILE)-merge -i $(INC_DIR) -s $(SRC_DIR) $(SRC_DIR)/$(NAME).$(CFILE) -o tp.$(CFILE)
