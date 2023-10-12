@@ -80,9 +80,6 @@ void Graph::find_min_crossing_time(uint32_t index_start_village) {
         Village *current_village = queue.top();
         queue.pop();
 
-        if (current_village->has_visited())
-            continue;
-
         for (auto conn : current_village->get_connected_villages()) {
             uint32_t index_neighbor = conn->get_neighbor(current_village->get_index_village());
             Village *next_village = m_villages[index_neighbor];
@@ -90,10 +87,10 @@ void Graph::find_min_crossing_time(uint32_t index_start_village) {
             uint64_t new_time = current_village->get_crossing_time() + conn->get_crossing_time();
             if (next_village->get_crossing_time() > new_time) {
                 next_village->set_crossing_time(new_time);
+                next_village->set_parent_village(current_village->get_index_village());
                 queue.push(next_village);
             }
         }
-        current_village->set_visited(true);
     }
 }
 
@@ -106,43 +103,51 @@ void Graph::mst_prim(uint32_t index_start_village, std::vector<Connection *> *mi
     start_village->set_visited(true);
 
     std::vector<Connection *> neighbors = start_village->get_connected_villages();
+    // define a min priority queue
     std::priority_queue<Connection *, std::vector<Connection *>, Compare>
         queue(neighbors.begin(), neighbors.end());
 
     while (queue.size()) {
-        Connection *conn = queue.top();
+        Connection *current_conn = queue.top();
         queue.pop();
 
-        uint32_t index_neighbor = conn->get_first_index_village();
-        Village *next_village = m_villages[index_neighbor];
+        uint32_t current_index_neighbor = current_conn->get_first_index_village();
+        Village *next_village = m_villages[current_index_neighbor];
 
         if (next_village->has_visited()) {
-            index_neighbor = conn->get_neighbor(next_village->get_index_village());
-            next_village = m_villages[index_neighbor];
+            current_index_neighbor = current_conn->get_neighbor(current_index_neighbor);
+            next_village = m_villages[current_index_neighbor];
 
             if (next_village->has_visited())
                 continue;
         }
 
-        min_tree->push_back(conn);
+        min_tree->push_back(current_conn);
         next_village->set_visited(true);
-        for (Connection *new_conn : next_village->get_connected_villages()) {
-            uint32_t new_index_neighbor = new_conn->get_neighbor(index_neighbor);
-            if (!m_villages[new_index_neighbor]->has_visited()) {
-                queue.push(new_conn);
+        for (Connection *conn : next_village->get_connected_villages()) {
+            uint32_t index_neighbor = conn->get_neighbor(current_index_neighbor);
+            if (!m_villages[index_neighbor]->has_visited()) {
+                queue.push(conn);
             }
         }
     }
 }
 
 uint32_t Graph::find_smallest_achievable_year() {
-    std::vector<Connection *> min_tree;
+    std::vector<Connection *> best_conn;
+    for (Connection *conn : this->m_connections) {
+        uint32_t fi = conn->get_first_index_village();
+        uint32_t si = conn->get_second_index_village();
 
-    Connection::CompareCrossingTime compare;
-    mst_prim(0, &min_tree, compare);
+        if (m_villages[fi]->get_parent_village() == si) {
+            best_conn.push_back(conn);
+        } else if (m_villages[si]->get_parent_village() == fi) {
+            best_conn.push_back(conn);
+        }
+    }
 
-    uint32_t max_age = min_tree.front()->get_age_conn();
-    for (Connection *v : min_tree) {
+    uint32_t max_age = best_conn.front()->get_age_conn();
+    for (Connection *v : best_conn) {
         uint32_t value = v->get_age_conn();
         if (value > max_age) {
             max_age = value;
