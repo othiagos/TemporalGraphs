@@ -160,7 +160,7 @@ uint32_t Graph::find_first_attainable_year() {
     std::vector<Connection *> min_tree;
 
     Connection::CompareAgeConn compare;
-    mst_prim(0, &min_tree, compare);
+    mst_prim(START_VILLAGE, &min_tree, compare);
 
     uint32_t max_age = min_tree.front()->get_age_conn();
     for (Connection *v : min_tree) {
@@ -176,7 +176,7 @@ uint64_t Graph::find_lowest_possible_cost() {
     std::vector<Connection *> min_tree;
 
     Connection::CompareConstructionCost compare;
-    mst_prim(0, &min_tree, compare);
+    mst_prim(START_VILLAGE, &min_tree, compare);
 
     uint64_t sum_cost = 0;
     for (Connection *v : min_tree) {

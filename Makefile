@@ -7,7 +7,7 @@ LIB_DIR = ./lib
 BIN_DIR = ./bin
 BUILD_DIR = ./build
 TEST_DIR = ./tests
-CFLAGS = --std=c++11 -Wall -g
+CFLAGS = --std=c++11 -Wall -O1 -g
 HFIlE = hpp
 CFILE = cpp
 EXE = $(BIN_DIR)/$(NAME)
@@ -61,4 +61,4 @@ clean:
 	rm -f $(EXE_TEST)
 
 file:
-	$(CFILE)-merge -i $(INC_DIR) -s $(SRC_DIR) $(SRC_DIR)/$(NAME).$(CFILE) -o tp.$(CFILE)
+	cpp-merge -i $(INC_DIR) -s $(SRC_DIR) $(SRC_DIR)/$(NAME).$(CFILE) -o tp.$(CFILE)
