@@ -76,7 +76,7 @@ void Graph::find_min_crossing_time(uint32_t index_start_village) {
     std::priority_queue<Village *, std::vector<Village *>, Village::CompareCrossingTime> queue;
     queue.push(start_village);
 
-    while (!queue.empty()) {
+    while (queue.size()) {
         Village *current_village = queue.top();
         queue.pop();
 

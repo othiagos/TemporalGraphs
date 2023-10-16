@@ -6,19 +6,23 @@ INC_DIR = ./include
 LIB_DIR = ./lib
 BIN_DIR = ./bin
 BUILD_DIR = ./build
-TEST_DIR = ./tests
+TEST_DIR_NAME = tests
+TEST_DIR = ./$(TEST_DIR_NAME)
 CFLAGS = --std=c++11 -Wall -O1 -g
 HFIlE = hpp
 CFILE = cpp
 EXE = $(BIN_DIR)/$(NAME)
 EXE_TEST = $(BIN_DIR)/$(TEST_NAME)
 
+# 1: folder to be checked
+# 2: ignore main file
+# 3: ignore test folder 
 define GENERATE_OBJS
-$(shell for f in $$(ls -R $(1) | grep $(CFILE) | sed 's/$(CFILE)/o/;s/$(2).o//'); do echo $(BUILD_DIR)/$$f; done)
+$(shell for f in $$(ls -R $(1) -I $(3) | grep $(CFILE) | sed 's/$(CFILE)/o/;s/$(2).o//'); do echo $(BUILD_DIR)/$$f; done)
 endef
 
-OBJS = $(call GENERATE_OBJS,$(SRC_DIR),$(NAME))
-TEST_OBJS = $(call GENERATE_OBJS,$(TEST_DIR),$(TEST_NAME))
+OBJS = $(call GENERATE_OBJS,$(SRC_DIR),$(NAME),$(TEST_DIR_NAME))
+TEST_OBJS = $(call GENERATE_OBJS,$(TEST_DIR),$(TEST_NAME),'')
 
 all: $(EXE)
 
